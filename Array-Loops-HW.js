@@ -119,6 +119,12 @@ function average(arr) {
     return total / count
 }
 
+//another option:
+function average(arr) {
+    let total = sum(arr) //just call the function from exercise one
+    return total / arr.length
+}
+
 //#################################################################################################################################################
 // 3. write a function that takes in an array. ומספר לאי שיוון?, 
 // The function will calculate and return the sum of numbers in the array that are biggger than the number we sent
@@ -182,7 +188,7 @@ function sumBigger(arr, number) {
 //again using reduce:
 
 function sumBigger(arr, number) {
-    let finalTotal = 0
+
     let toSum = []
 
     for (let i = 0; i < arr.length; i++) {
@@ -320,7 +326,7 @@ console.log(objArr, 'Expecting: [{firstName:"Jack", avg: 76.66},{firstName: "Dav
 function students(objArr) {
     let entry = []
     for (let i = 0; i < objArr.length; i++) {
-        entry.push({ firstName: objArr[i].firstName, avg: average(objArr[i].grades) })
+        entry.push({ firstName: objArr[i].firstName, avg: average(objArr[i].grades) }) //toFixed(2) turns into a string I want a number
     }
     return entry
 }
@@ -363,6 +369,46 @@ function average(arr) {
     }
     return total / arr.length
 }
+
+
+// Another way using O(n^2) with 2 loops:
+let students = [{
+    firstName: "Joe",
+    lastName: "Sun",
+    grades: [78, 65, 78, 55, 66]
+}, {
+    firstName: "Eti",
+    lastName: "Amir",
+    grades: [30, 80, 75, 95, 100]
+}]
+
+
+function getGrades(arr) {
+    let studentGrades = []
+    let sum;
+
+
+    for (let i = 0; i < arr.length; i++) { //ROWS
+        sum = 0; //second loop מאפס sum so can be used again
+        console.log('arr', arr)
+        for (let j = 0; j < arr[i].grades.length; j++) { //COLUMNS
+            // console.log('arr[i].grades',arr[i].grades[j])  //prints each grade in the arr.
+            //arr[i].grades  gives you: (6) [100, 80, 60, 70, 95, 65]
+            //arr[i].grades[j] gives you :  all 5 umbers one after another. 
+            //arr[1].grades[j] (on second loop) gives you : all 5 numbers of second object. 
+            let grade = arr[i].grades[j] //prints each grade in the arr.
+                // console.log('grade',grade)
+            sum += grade
+        }
+        // console.log('gradearrray length:' ,arr[i].grades.length)  //prints length: 5 of each array
+        let gradeArrayLength = arr[i].grades.length
+        avg = sum / gradeArrayLength
+        console.log('avg', avg, 'sum', sum)
+        studentGrades.push({ firstName: arr[i].firstName, lastName: arr[i].lastName, grades: avg })
+    }
+    return studentGrades
+}
+
 
 
 // destructuring: ?????? How to destructure an object in the parameter that's in an array plus when there is 2 or more objects???
